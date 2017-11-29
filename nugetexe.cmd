@@ -1,11 +1,15 @@
-@ECHO off
+# @ECHO off
+SETLOCAL
 
-if not exist "%~dp0.nuget" mkdir "%~dp0.nuget"
+SET nugetfolder="%~dp0.nuget"
+SET nugetpath="%nugetfolder%\nuget.exe"
 
-if not exist "%~dp0.nuget\nuget.exe" (
-	echo Invoke-WebRequest "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe" -OutFile "%~dp0.nuget\nuget.exe" | powershell -command -
+if not exist "%nugetfolder%" mkdir "%nugetfolder%"
+
+if not exist "%nugetpath%" (
+	echo Invoke-WebRequest "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe" -OutFile "%nugetpath%" | powershell -command -
 )
 
-"%~dp0.nuget\nuget.exe"  %*
+"%nugetpath%"  %*
 
 
